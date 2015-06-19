@@ -18,8 +18,9 @@ ActiveRecord::Schema.define(version: 20150619154013) do
     t.string   "name"
     t.string   "description"
     t.float    "price"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.integer  "likes_count",   default: 0
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "likes", force: :cascade do |t|

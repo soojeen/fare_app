@@ -8,6 +8,8 @@ u = User.create(username: Faker::Internet.user_name)
   
   random_num = Random.new
   random_num.rand(10).times do | j |
-    Like.create(dish_id: d.id, user_id: u.id)
+    l = d.likes.create
+    l.user = u
+    l.save
   end
 end
