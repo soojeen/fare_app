@@ -6,6 +6,7 @@ class CreateDishTable < ActiveRecord::Migration
       t.string :name
       t.string :description
       t.float :price
+      t.integer :likes_count, default: 0
       t.timestamps null: false
     end
   end
