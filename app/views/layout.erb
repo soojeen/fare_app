@@ -12,12 +12,17 @@
   -->
   <link rel="stylesheet" href="/stylesheets/application.css">
 
-  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-  <script src="/javascript/application.js"></script>
+  <script src="https://fb.me/react-0.13.3.min.js"></script>
+  <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
   <title></title>
 </head>
 <body>
+
+  <div id='myDiv'></div>
   <%= yield %>
+  <script type="text/jsx" src='/javascript/dish.js'></script>
+
 </body>
 </html>
