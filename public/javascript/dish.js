@@ -16,13 +16,11 @@ var Dish = React.createClass({
 
 var DishList = React.createClass({
   render: function () {
-    
     var DishNodes = this.props.data.map(function (dish) {
       return (
         <Dish data={dish} />
       );
     });
-
     return (
       <div className="dishList">
         {DishNodes}
@@ -32,17 +30,42 @@ var DishList = React.createClass({
 });
 
 var DishBox = React.createClass({
+
+  loadDishesFromServer: function() {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function(data) {
+        this.setState({data: data});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  getInitialState: function () {
+    return {data: []};
+  },
+
+  componentDidMount: function() {
+    this.loadDishesFromServer();
+    setInterval(this.loadDishesFromServer, this.props.pollInterval);
+  },
+
   render: function () {
     return (
       <div className="dishesBox">
         <h1>List</h1>
-        <DishList data={this.props.data}/>
+        <DishList data={this.state.data}/>
       </div>
     );
   }
+
 });
 
 React.render(
-  <DishBox data={dish_data}/>,
+  <DishBox url={'/dishes'} pollInterval={2000}/>,
   document.getElementById('myDiv')
 );
