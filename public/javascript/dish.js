@@ -1,10 +1,15 @@
 var Dish = React.createClass({
   render: function () {
     return (
-      <li className="dish collection-item">
-        <div className="dishName">{this.props.data.name}</div>
-        <div className="dishLikes">{this.props.data.likes_count}</div>
-      </li>
+      <div className="">
+        <li className="dish collection-item">
+          <div className="dishName">{this.props.data.name}</div>
+          <div className="dishLikes">
+            <i className="mdi-action-favorite-outline"></i>
+            {this.props.data.likes_count}
+          </div>
+        </li>
+      </div>
     );
   }
 })
