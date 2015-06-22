@@ -3102,7 +3102,8 @@ button.btn-floating {
     font-size: 1.6rem; }
 
 .btn-flat {
-  padding: 0 0.5rem; }
+  padding: 0 0.5rem;
+  color: #666633; }
 
 body {
   background-color: #f6f1eb;

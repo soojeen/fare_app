@@ -80,6 +80,6 @@ var DishBox = React.createClass({
 });
 
 React.render(
-  <DishBox url={'/dishes'} pollInterval={2000}/>,
+  <DishBox url={'/dishes'} pollInterval={100000}/>,
   document.getElementById('myDiv')
 );
