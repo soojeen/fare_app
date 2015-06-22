@@ -1,18 +1,34 @@
+var DishLikes = React.createClass({
+  handleSubmit: function (e) {
+    e.prevent_default();
+
+  },
+
+  render: function () {
+    return (
+      <div className="dishLikes">
+        <button className="submitLike btn-flat" type="submit">
+          <i className="mdi-action-favorite-outline"></i>
+        </button>
+        <span>{this.props.likes_count}</span>
+      </div>
+
+    );
+  }
+});
+
 var Dish = React.createClass({
   render: function () {
     return (
-      <div className="">
-        <li className="dish collection-item">
+      <div className="row">
+        <li className="dish col s12">
           <div className="dishName">{this.props.data.name}</div>
-          <div className="dishLikes">
-            <i className="mdi-action-favorite-outline"></i>
-            {this.props.data.likes_count}
-          </div>
+          <DishLikes likes_count={this.props.data.likes_count}/>
         </li>
       </div>
     );
   }
-})
+});
 
 var DishList = React.createClass({
   render: function () {
@@ -22,7 +38,7 @@ var DishList = React.createClass({
       );
     });
     return (
-      <ul className="dishList collection">
+      <ul className="dishList">
         {DishNodes}
       </ul>
     );
@@ -30,16 +46,15 @@ var DishList = React.createClass({
 });
 
 var DishBox = React.createClass({
-
-  loadDishesFromServer: function() {
+  loadDishesFromServer: function () {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       cache: false,
-      success: function(data) {
+      success: function (data) {
         this.setState({data: data});
       }.bind(this),
-      error: function(xhr, status, err) {
+      error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
@@ -49,7 +64,7 @@ var DishBox = React.createClass({
     return {data: []};
   },
 
-  componentDidMount: function() {
+  componentDidMount: function () {
     this.loadDishesFromServer();
     setInterval(this.loadDishesFromServer, this.props.pollInterval);
   },
@@ -57,12 +72,11 @@ var DishBox = React.createClass({
   render: function () {
     return (
       <div className="dishesBox">
-        <h1>List</h1>
+        <h1 className="center-align">Fare</h1>
         <DishList data={this.state.data}/>
       </div>
     );
   }
-
 });
 
 React.render(
