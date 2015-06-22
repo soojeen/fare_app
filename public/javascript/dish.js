@@ -1,15 +1,10 @@
-var dish_data = [
-  {name: 'Dish One', likes_count: '4'},
-  {name: 'Dish Two', likes_count: '5'}
-];
-
 var Dish = React.createClass({
   render: function () {
     return (
-      <div className="dish">
+      <li className="dish collection-item">
         <div className="dishName">{this.props.data.name}</div>
         <div className="dishLikes">{this.props.data.likes_count}</div>
-      </div>
+      </li>
     );
   }
 })
@@ -22,9 +17,9 @@ var DishList = React.createClass({
       );
     });
     return (
-      <div className="dishList">
+      <ul className="dishList collection">
         {DishNodes}
-      </div>
+      </ul>
     );
   }
 });
