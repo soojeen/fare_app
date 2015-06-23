@@ -1,18 +1,20 @@
 var DishLikes = React.createClass({
   handleSubmit: function (e) {
+    console.alert('something')
     e.prevent_default();
-
+    // post like to server
+    // React.findDOMNode(this.refs.props)
+    // animate button
   },
 
   render: function () {
     return (
       <div className="dishLikes">
-        <button className="submitLike btn-flat" type="submit">
+        <button type="submit" className="submitLike btn-flat" value="Post" onSubmit={function () {console.log('submit')}}>
           <i className="mdi-action-favorite-outline"></i>
         </button>
         <span>{this.props.likes_count}</span>
       </div>
-
     );
   }
 });
