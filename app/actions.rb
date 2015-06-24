@@ -1,4 +1,5 @@
-# Homepage (Root path)
+enable :sessions
+
 get '/' do
   erb :index
 end
@@ -21,9 +22,16 @@ get '/dishes' do
   json results
 end
 
+get '/login' do
+  username = params['username']
+  @user = User.find(username)
+  session[:user_id] = user.id
+end
+
 post '/dishes' do
   dish_id = params['dish_id']
   @dish = Dish.find(dish_id.to_i)
   @dish.likes.create
   redirect '/dishes'
 end
+

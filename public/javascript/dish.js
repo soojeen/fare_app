@@ -1,7 +1,6 @@
 var DishLikes = React.createClass({
 
   handleClick: function (e) {
-    console.log(this.props)
     this.props.onLike({dish_id: this.props.dish.id});
   },
 
@@ -65,8 +64,8 @@ var DishBox = React.createClass({
       dataType: 'json',
       type: 'POST',
       data: dish,
-      success: function() {
-        this.loadDishesFromServer();
+      success: function(d) {
+        this.setState({dishes: d});
       }.bind(this),
       error: function(xhr, status, err) {
         console.error(this.props.url, status, err.toString());
