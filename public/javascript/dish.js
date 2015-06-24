@@ -1,4 +1,4 @@
-var DishLikes = React.createClass({
+var DishLikes = React.createClass ({
 
   handleClick: function (e) {
     this.props.onLike({dish_id: this.props.dish.id});
@@ -16,7 +16,7 @@ var DishLikes = React.createClass({
   }
 });
 
-var Dish = React.createClass({
+var Dish = React.createClass ({
   render: function () {
     return (
       <li className="dish">
@@ -29,13 +29,21 @@ var Dish = React.createClass({
   }
 });
 
-var DishList = React.createClass({
+var DishList = React.createClass ({
   render: function () {
-    onLikeFunction = this.props.onLike;
+    var onLikeFunction = this.props.onLike;
+    var userLikes = this.props.userLikes;
     var DishNodes = this.props.dishes.map(function (dish) {
+      var liked = false;
+      var dish_hash = {dish_id: dish.id}
+      if (_.find(userLikes, dish_hash) === undefined)
+        {console.log('no instances');}
+      else
+        {console.log('found')}
       return (
-        <Dish dish={dish} onLike={onLikeFunction} />
+        <Dish dish={dish} liked={liked} onLike={onLikeFunction} />
       );
+
     });
     return (
       <ul className="dishList">
@@ -45,13 +53,27 @@ var DishList = React.createClass({
   }
 });
 
-var DishBox = React.createClass({
+var LoginButton = React.createClass ({
+  render: function() {
+    console.log(this.props)
+    return <a className="loginButton btn" onClick={this.props.onPress}>login</a>
+  }
+});
+
+var LogoutButton = React.createClass ({
+  render: function() {
+    return <a className="logoutButton btn" onClick={this.props.onPress}>logout</a>
+  }
+});
+
+var DishBox = React.createClass ({
+
   loginToServer: function () {
     $.ajax({
       url: '/login',
       dataType: 'json',
       cache: false,
-      data: {username: 'ahmad.koch'},
+      data: {username: 'foodie'},
       success: function (d) {
         this.setState({dishes: d});
       }.bind(this),
@@ -59,6 +81,20 @@ var DishBox = React.createClass({
         console.error(this.props.url, status, err.toString());
       }.bind(this)
     });
+  },
+
+  logoutOfServer: function () {
+    $.ajax({
+      url: '/logout',
+      dataType: 'json',
+      cache: false,
+      success: function (d) {
+        this.setState({dishes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });    
   },
 
   loadDishesFromServer: function () {
@@ -75,42 +111,63 @@ var DishBox = React.createClass({
     });
   },
 
+  loadUserLikesFromServer: function () {
+    $.ajax({
+      url: '/dishes/user_likes',
+      dataType: 'json',
+      cache: false,
+      success: function (d) {
+        this.setState({userLikes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)      
+    });
+  },
+
   handleLikeSubmit: function (dish) {
     $.ajax({
       url: this.props.url,
       dataType: 'json',
       type: 'POST',
       data: dish,
-      success: function(d) {
+      success: function (d) {
         this.setState({dishes: d});
       }.bind(this),
-      error: function(xhr, status, err) {
+      error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)      
     })
   },
 
   getInitialState: function () {
-    return {dishes: []};
+    return {dishes: [], userLikes: []};
   },
 
   componentDidMount: function () {
-    this.loginToServer();
-    this.loadDishesFromServer();
-    setInterval(this.loadDishesFromServer, this.props.pollInterval);
+    var loadDishes = this.loadDishesFromServer;
+    var loadLikes = this.loadUserLikesFromServer;
+    loadDishes();
+    loadLikes();
+    setInterval(function () {
+      loadDishes();
+      loadLikes();
+    }, this.props.pollInterval);
   },
 
   render: function () {
     return (
       <div className="dishesBox">
+        <LoginButton onPress={this.loginToServer} />
+        <LogoutButton onPress={this.logoutOfServer} />
         <h1 className="center-align">Fare</h1>
-        <DishList dishes={this.state.dishes} onLike={this.handleLikeSubmit}/>
+        <DishList dishes={this.state.dishes} userLikes={this.state.userLikes} onLike={this.handleLikeSubmit} />
       </div>
     );
   }
 });
 
-React.render(
-  <DishBox url={'/dishes'} pollInterval={100000}/>,
-  document.getElementById('myDiv')
+React.render (
+  <DishBox url={'/dishes'} pollInterval={5000} />,
+  document.getElementById ('myDiv')
 );

@@ -9,7 +9,7 @@ get '/dishes' do
   json @dishes
 end
 
-get '/dishes/userliked' do
+get '/dishes/user_likes' do
   user_id = session[:user_id]
   @likes = Like.where(user_id: user_id)
   json @likes
@@ -19,6 +19,13 @@ get '/login' do
   username = params[:username]
   @user = User.find_by(username: username)
   session[:user_id] = @user.id
+  puts "login #{@user.id}"
+  redirect '/dishes'
+end
+
+get '/logout' do
+  session.clear
+  puts 'clear'
   redirect '/dishes'
 end
 
