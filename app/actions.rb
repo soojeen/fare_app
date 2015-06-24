@@ -23,15 +23,17 @@ get '/dishes' do
 end
 
 get '/login' do
-  username = params['username']
-  @user = User.find(username)
-  session[:user_id] = user.id
+  username = params[:username]
+  @user = User.find_by(username: username)
+  session[:user_id] = @user.id
+  redirect '/dishes'
 end
 
 post '/dishes' do
-  dish_id = params['dish_id']
+  dish_id = params[:dish_id]
+  user_id = session[:user_id]
   @dish = Dish.find(dish_id.to_i)
-  @dish.likes.create
+  Like.create(dish_id: dish_id, user_id: user_id)
   redirect '/dishes'
 end
 

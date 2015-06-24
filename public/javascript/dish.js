@@ -44,6 +44,21 @@ var DishList = React.createClass({
 });
 
 var DishBox = React.createClass({
+  loginToServer: function () {
+    $.ajax({
+      url: '/login',
+      dataType: 'json',
+      cache: false,
+      data: {username: 'ahmad.koch'},
+      success: function (d) {
+        this.setState({dishes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
   loadDishesFromServer: function () {
     $.ajax({
       url: this.props.url,
@@ -78,6 +93,7 @@ var DishBox = React.createClass({
   },
 
   componentDidMount: function () {
+    this.loginToServer();
     this.loadDishesFromServer();
     setInterval(this.loadDishesFromServer, this.props.pollInterval);
   },
