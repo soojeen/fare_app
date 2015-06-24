@@ -5,7 +5,7 @@ get '/' do
 end
 
 get '/dishes' do
-  @dishes = Dish.order(likes_count: :desc).limit(10)
+  @dishes = Dish.includes(:restaurant).order(likes_count: :desc).limit(10)
   results = @dishes.map do |d|
     {
       id: d.id,
@@ -35,5 +35,10 @@ post '/dishes' do
   @dish = Dish.find(dish_id.to_i)
   Like.create(dish_id: dish_id, user_id: user_id)
   redirect '/dishes'
+end
+
+get '/jdishes' do
+  @dishes = Dish.includes(:restaurant).order(likes_count: :desc).limit(10)
+  json @dishes
 end
 

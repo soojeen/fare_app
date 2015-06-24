@@ -10,6 +10,7 @@ require 'sinatra/contrib/all' # Requires cookies, among other things
 
 require 'pry' if development?
 require 'faker'
+require 'sinatra-active-model-serializers'
 
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 APP_NAME = APP_ROOT.basename.to_s
@@ -30,3 +31,10 @@ require APP_ROOT.join('config', 'database')
 
 # Load the routes / actions
 require APP_ROOT.join('app', 'actions')
+
+# Serializer config
+ActiveModel::Serializer.setup do |config|
+  config.adapter = :json_api
+end
+
+require APP_ROOT.join('app/serializers', 'dish')
