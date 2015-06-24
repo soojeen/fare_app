@@ -1,19 +1,16 @@
 var DishLikes = React.createClass({
-  handleSubmit: function (e) {
-    console.alert('something')
-    e.prevent_default();
-    // post like to server
-    // React.findDOMNode(this.refs.props)
-    // animate button
+
+  handleClick: function (e) {
+    this.props.onLike({dish_id: this.props.dish.id});
   },
 
   render: function () {
     return (
       <div className="dishLikes">
-        <button type="submit" className="submitLike btn-flat" value="Post" onSubmit={function () {console.log('submit')}}>
+        <button className="submitLike btn-flat" onClick={this.handleClick}>
           <i className="mdi-action-favorite-outline"></i>
         </button>
-        <span>{this.props.likes_count}</span>
+        <span>{this.props.dish.likes_count}</span>
       </div>
     );
   }
@@ -22,21 +19,20 @@ var DishLikes = React.createClass({
 var Dish = React.createClass({
   render: function () {
     return (
-      <div className="row">
-        <li className="dish col s12">
-          <div className="dishName">{this.props.data.name}</div>
-          <DishLikes likes_count={this.props.data.likes_count}/>
-        </li>
-      </div>
+      <li className="dish">
+        <div className="dishName">{this.props.dish.name}</div>
+        <DishLikes dish={this.props.dish} onLike={this.props.onLike} />
+      </li>
     );
   }
 });
 
 var DishList = React.createClass({
   render: function () {
-    var DishNodes = this.props.data.map(function (dish) {
+    onLikeFunction = this.props.onLike;
+    var DishNodes = this.props.dishes.map(function (dish) {
       return (
-        <Dish data={dish} />
+        <Dish dish={dish} onLike={onLikeFunction} />
       );
     });
     return (
@@ -48,13 +44,14 @@ var DishList = React.createClass({
 });
 
 var DishBox = React.createClass({
-  loadDishesFromServer: function () {
+  loginToServer: function () {
     $.ajax({
-      url: this.props.url,
+      url: '/login',
       dataType: 'json',
       cache: false,
-      success: function (data) {
-        this.setState({data: data});
+      data: {username: 'ahmad.koch'},
+      success: function (d) {
+        this.setState({dishes: d});
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -62,11 +59,41 @@ var DishBox = React.createClass({
     });
   },
 
+  loadDishesFromServer: function () {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      cache: false,
+      success: function (d) {
+        this.setState({dishes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  handleLikeSubmit: function (dish) {
+    $.ajax({
+      url: this.props.url,
+      dataType: 'json',
+      type: 'POST',
+      data: dish,
+      success: function(d) {
+        this.setState({dishes: d});
+      }.bind(this),
+      error: function(xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)      
+    })
+  },
+
   getInitialState: function () {
-    return {data: []};
+    return {dishes: []};
   },
 
   componentDidMount: function () {
+    this.loginToServer();
     this.loadDishesFromServer();
     setInterval(this.loadDishesFromServer, this.props.pollInterval);
   },
@@ -75,7 +102,7 @@ var DishBox = React.createClass({
     return (
       <div className="dishesBox">
         <h1 className="center-align">Fare</h1>
-        <DishList data={this.state.data}/>
+        <DishList dishes={this.state.dishes} onLike={this.handleLikeSubmit}/>
       </div>
     );
   }
