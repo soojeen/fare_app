@@ -6,20 +6,13 @@ end
 
 get '/dishes' do
   @dishes = Dish.includes(:restaurant).order(likes_count: :desc).limit(10)
-  results = @dishes.map do |d|
-    {
-      id: d.id,
-      liked: true, # condition,
-      likes_count: d.likes_count,
-      desc: d.description,
-      price: d.price,
-      name: d.name,
-      restaurant: {
-        name: d.restaurant.name
-      }
-    }
-  end
-  json results
+  json @dishes
+end
+
+get '/dishes/userliked' do
+  user_id = session[:user_id]
+  @likes = Like.where(user_id: user_id)
+  json @likes
 end
 
 get '/login' do
@@ -36,9 +29,3 @@ post '/dishes' do
   Like.create(dish_id: dish_id, user_id: user_id)
   redirect '/dishes'
 end
-
-get '/jdishes' do
-  @dishes = Dish.includes(:restaurant).order(likes_count: :desc).limit(10)
-  json @dishes
-end
-

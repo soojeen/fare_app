@@ -6,12 +6,12 @@ var DishLikes = React.createClass({
 
   render: function () {
     return (
-      <div className="dishLikes">
+      <span className="dishLikes">
         <button className="submitLike btn-flat" onClick={this.handleClick}>
           <i className="mdi-action-favorite-outline"></i>
         </button>
         <span>{this.props.dish.likes_count}</span>
-      </div>
+      </span>
     );
   }
 });
@@ -21,7 +21,9 @@ var Dish = React.createClass({
     return (
       <li className="dish">
         <div className="dishName">{this.props.dish.name}</div>
-        <DishLikes dish={this.props.dish} onLike={this.props.onLike} />
+        <div className="restaurantName">{this.props.dish.restaurant.name}
+          <DishLikes dish={this.props.dish} onLike={this.props.onLike} />
+        </div>
       </li>
     );
   }
