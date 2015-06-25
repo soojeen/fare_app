@@ -22,8 +22,8 @@ var Dish = React.createClass ({
   render: function () {
     return (
       <li className="dish">
-        <div className="dishName">{this.props.dish.name}</div>
-        <div className="dishDescription">Description</div>
+        <p className="dishName">{this.props.dish.name}</p>
+        <p className="dishDescription truncate">{this.props.dish.description}</p>
         <div className="restaurantName">{this.props.dish.restaurant.name}
           <DishLikes dish={this.props.dish} liked={this.props.liked} onLike={this.props.onLike} />
         </div>

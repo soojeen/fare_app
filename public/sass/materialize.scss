@@ -57,11 +57,11 @@ $collection-bg-color: $secondary-color;
 }
 
 .dish {
-  padding-left: 10px;
+  padding: 1rem 2rem;
   border-bottom: 1px solid $primary-color
 }
 
-.dishList {
+p, .dishList {
   margin: 0
 }
 
@@ -71,7 +71,7 @@ nav {
 }
 
 body {
-  background-color: $collection-bg-color;
   color: $primary-color;
-  font-size: 1.2em
+  background-color: $secondary-color;
+  font-size: 1.1em
 }

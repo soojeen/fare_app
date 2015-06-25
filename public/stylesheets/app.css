@@ -5466,10 +5466,10 @@ button.btn-floating {
   font-size: 1.7em; }
 
 .dish {
-  padding-left: 10px;
+  padding: 1rem 2rem;
   border-bottom: 1px solid #666633; }
 
-.dishList {
+p, .dishList {
   margin: 0; }
 
 nav {
@@ -5477,8 +5477,8 @@ nav {
   box-shadow: none; }
 
 body {
-  background-color: #f6f1eb;
   color: #666633;
-  font-size: 1.2em; }
+  background-color: #f6f1eb;
+  font-size: 1.1em; }
 
 /*# sourceMappingURL=app.css.map */
