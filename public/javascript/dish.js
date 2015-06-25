@@ -23,6 +23,7 @@ var Dish = React.createClass ({
     return (
       <li className="dish">
         <div className="dishName">{this.props.dish.name}</div>
+        <div className="dishDescription">Description</div>
         <div className="restaurantName">{this.props.dish.restaurant.name}
           <DishLikes dish={this.props.dish} liked={this.props.liked} onLike={this.props.onLike} />
         </div>
@@ -155,6 +156,9 @@ var DishBox = React.createClass ({
   },
 
   handleLikeSubmit: function (dish) {
+    var likes = this.state.userLikes;
+    var newLikes = likes.concat([dish]);
+    this.setState({userLikes: newLikes});
     $.ajax({
       url: this.props.url,
       dataType: 'json',
@@ -166,7 +170,7 @@ var DishBox = React.createClass ({
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
       }.bind(this)      
-    })
+    });
   },
 
   getInitialState: function () {
