@@ -19,13 +19,11 @@ get '/login' do
   username = params[:username]
   @user = User.find_by(username: username)
   session[:user_id] = @user.id
-  puts "login #{@user.id}"
   redirect '/dishes'
 end
 
 get '/logout' do
   session.clear
-  puts 'clear'
   redirect '/dishes'
 end
 

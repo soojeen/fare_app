@@ -5,11 +5,14 @@ var DishLikes = React.createClass ({
   },
 
   render: function () {
+    var likeIcon = (this.props.liked) ? "mdi-action-favorite" : "mdi-action-favorite-outline";
+    var likeClick = (this.props.liked) ? "" : this.handleClick;
+    console.log(likeClick)
     return (
       <span className="dishLikes">
-        <button className="submitLike btn-flat" onClick={this.handleClick}>
-          <i className="mdi-action-favorite-outline"></i>
-        </button>
+        <a className="submitLike btn-flat" onClick={likeClick}>
+          <i className={likeIcon}></i>
+        </a>
         <span>{this.props.dish.likes_count}</span>
       </span>
     );
@@ -22,7 +25,7 @@ var Dish = React.createClass ({
       <li className="dish">
         <div className="dishName">{this.props.dish.name}</div>
         <div className="restaurantName">{this.props.dish.restaurant.name}
-          <DishLikes dish={this.props.dish} onLike={this.props.onLike} />
+          <DishLikes dish={this.props.dish} liked={this.props.liked} onLike={this.props.onLike} />
         </div>
       </li>
     );
@@ -31,17 +34,15 @@ var Dish = React.createClass ({
 
 var DishList = React.createClass ({
   render: function () {
-    var onLikeFunction = this.props.onLike;
+    var onLike = this.props.onLike;
     var userLikes = this.props.userLikes;
     var DishNodes = this.props.dishes.map(function (dish) {
       var liked = false;
-      var dish_hash = {dish_id: dish.id}
-      if (_.find(userLikes, dish_hash) === undefined)
-        {console.log('no instances');}
-      else
-        {console.log('found')}
+      var dish_hash = {dish_id: dish.id};
+      if (_.find(userLikes, {dish_id: dish.id}) !== undefined)
+        liked = true;
       return (
-        <Dish dish={dish} liked={liked} onLike={onLikeFunction} />
+        <Dish dish={dish} liked={liked} onLike={onLike} />
       );
 
     });
@@ -55,7 +56,6 @@ var DishList = React.createClass ({
 
 var LoginButton = React.createClass ({
   render: function() {
-    console.log(this.props)
     return <a className="loginButton btn" onClick={this.props.onPress}>login</a>
   }
 });
@@ -125,6 +125,11 @@ var DishBox = React.createClass ({
     });
   },
 
+  loadFromServer: function () {
+    this.loadDishesFromServer();
+    this.loadUserLikesFromServer();
+  },
+
   handleLikeSubmit: function (dish) {
     $.ajax({
       url: this.props.url,
@@ -145,14 +150,8 @@ var DishBox = React.createClass ({
   },
 
   componentDidMount: function () {
-    var loadDishes = this.loadDishesFromServer;
-    var loadLikes = this.loadUserLikesFromServer;
-    loadDishes();
-    loadLikes();
-    setInterval(function () {
-      loadDishes();
-      loadLikes();
-    }, this.props.pollInterval);
+    this.loadFromServer();
+    setInterval(this.loadFromServer, this.props.pollInterval);
   },
 
   render: function () {
