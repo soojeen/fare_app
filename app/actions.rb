@@ -17,14 +17,26 @@ end
 
 get '/login' do
   username = params[:username]
-  @user = User.find_by(username: username)
-  session[:user_id] = @user.id
-  redirect '/dishes'
+  if @user = User.find_by(username: username)
+    session[:user_id] = @user.id
+  else
+    @user = User.create(username: username)
+  end
+  json @user
 end
 
 get '/logout' do
   session.clear
   redirect '/dishes'
+end
+
+get '/sessions' do
+  if params[:username]
+    @user = User.find_by(username: username)
+  else
+    @user = nil
+  end
+  json @user
 end
 
 post '/dishes' do

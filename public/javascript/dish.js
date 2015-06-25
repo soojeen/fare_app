@@ -193,7 +193,50 @@ var DishBox = React.createClass ({
   }
 });
 
-React.render (
-  <DishBox url={'/dishes'} pollInterval={10000} />,
-  document.getElementById ('myDiv')
-);
+var LoginForm = React.createClass ({
+  handleSubmit: function (e) {
+    e.preventDefault;
+  },
+
+  render: function () {
+    return (
+      <form className="LoginForm" onSubmit={this.handleSubmit}>
+        <h1>login</h1>
+        <input type="text" placeholder="username" />
+        <input type="submit" />
+      </form>
+    );
+  }
+});
+
+var FareApp = React.createClass ({
+
+  getInitialState: function () {
+    return {login: false};
+  },
+
+  loadUserSession: function () {
+    $.ajax({
+      url: '/sessions',
+      dataType: 'json',
+      data: null,
+      success: function (d) {
+        if (d)
+          this.setState({login: login});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this) 
+    });
+  },
+
+  render: function () {
+    this.loadUserSession();
+    if (this.state.login === false)
+      return (<LoginForm />)
+    else
+      {return (<DishBox url={'/dishes'} pollInterval={10000} />)}
+  }
+});
+
+React.render (<FareApp />, document.getElementById ('myDiv'));
