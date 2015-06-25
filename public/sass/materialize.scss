@@ -13,7 +13,7 @@
 
 // components
 @import "components/global";
-// @import "components/icons-material-design";
+@import "components/icons-material-design";
 @import "components/grid";
 @import "components/navbar";
 @import "components/roboto";
@@ -63,6 +63,11 @@ $collection-bg-color: $secondary-color;
 
 .dishList {
   margin: 0
+}
+
+nav {
+  -webkit-box-shadow: none;
+  box-shadow: none
 }
 
 body {
