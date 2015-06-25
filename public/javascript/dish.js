@@ -7,7 +7,6 @@ var DishLikes = React.createClass ({
   render: function () {
     var likeIcon = (this.props.liked) ? "mdi-action-favorite" : "mdi-action-favorite-outline";
     var likeClick = (this.props.liked) ? "" : this.handleClick;
-    console.log(likeClick)
     return (
       <span className="dishLikes">
         <a className="submitLike btn-flat" onClick={likeClick}>
