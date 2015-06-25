@@ -54,15 +54,10 @@ var DishList = React.createClass ({
   }
 });
 
-var LoginButton = React.createClass ({
-  render: function () {
-    return <a className="loginButton btn-flat left" onClick={this.props.onPress}>login</a>
-  }
-});
 
 var LogoutButton = React.createClass ({
   render: function () {
-    return <a className="logoutButton btn-flat right" onClick={this.props.onPress}>logout</a>
+    return <a className="logoutButton btn-flat right" onClick={this.props.onLogout}>logout</a>
   }
 });
 
@@ -84,44 +79,13 @@ var PageFooter = React.createClass ({
   render: function () {
     return (
       <footer className="pageFooter">
-        <LoginButton onPress={this.props.login} />
-        <LogoutButton onPress={this.props.logout} />
+        <LogoutButton onLogout={this.props.onLogout} />
       </footer>
     )
   }
 });
 
 var DishBox = React.createClass ({
-
-  loginToServer: function () {
-    $.ajax({
-      url: '/login',
-      dataType: 'json',
-      cache: false,
-      data: {username: 'foodie'},
-      success: function (d) {
-        this.setState({dishes: d});
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });
-  },
-
-  logoutOfServer: function () {
-    $.ajax({
-      url: '/logout',
-      dataType: 'json',
-      cache: false,
-      success: function (d) {
-        this.setState({dishes: d});
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)
-    });    
-  },
-
   loadDishesFromServer: function () {
     $.ajax({
       url: this.props.url,
@@ -187,7 +151,7 @@ var DishBox = React.createClass ({
       <div className="dishesBox">
         <PageHeader />
         <DishList dishes={this.state.dishes} userLikes={this.state.userLikes} onLike={this.handleLikeSubmit} />
-        <PageFooter login={this.loginToServer} logout={this.logoutOfServer} />
+        <PageFooter onLogout={this.props.onLogout} />
       </div>
     );
   }
@@ -195,14 +159,16 @@ var DishBox = React.createClass ({
 
 var LoginForm = React.createClass ({
   handleSubmit: function (e) {
-    e.preventDefault;
+    e.preventDefault();
+    var username = React.findDOMNode(this.refs.username).value.trim();
+    this.props.onLogin({username: username});
   },
 
   render: function () {
     return (
       <form className="LoginForm" onSubmit={this.handleSubmit}>
         <h1>login</h1>
-        <input type="text" placeholder="username" />
+        <input type="text" ref="username" placeholder="username" />
         <input type="submit" />
       </form>
     );
@@ -213,6 +179,35 @@ var FareApp = React.createClass ({
 
   getInitialState: function () {
     return {login: false};
+  },
+
+  loginToServer: function (user) {
+    $.ajax({
+      url: '/login',
+      dataType: 'json',
+      cache: false,
+      data: user,
+      success: function (d) {
+        this.setState({login: true});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });
+  },
+
+  logoutOfServer: function () {
+    $.ajax({
+      url: '/logout',
+      dataType: 'json',
+      cache: false,
+      success: function (d) {
+        this.setState({login: false});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)
+    });    
   },
 
   loadUserSession: function () {
@@ -233,9 +228,9 @@ var FareApp = React.createClass ({
   render: function () {
     this.loadUserSession();
     if (this.state.login === false)
-      return (<LoginForm />)
+      return (<LoginForm onLogin={this.loginToServer} />)
     else
-      {return (<DishBox url={'/dishes'} pollInterval={10000} />)}
+      {return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)}
   }
 });
 

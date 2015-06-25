@@ -27,7 +27,8 @@ end
 
 get '/logout' do
   session.clear
-  redirect '/dishes'
+  @user = nil
+  json @user
 end
 
 get '/sessions' do
