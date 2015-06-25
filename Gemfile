@@ -11,6 +11,7 @@ gem 'sinatra-activerecord'
 gem 'puma'
 gem 'tux'
 gem 'faker'
+gem 'sinatra-active-model-serializers'
 
 group :development, :test do
   gem 'pry'
