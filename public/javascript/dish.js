@@ -41,7 +41,7 @@ var DishList = React.createClass ({
       if (_.find(userLikes, {dish_id: dish.id}) !== undefined)
         liked = true;
       return (
-        <Dish dish={dish} liked={liked} onLike={onLike} />
+        <Dish dish={dish} liked={liked} onLike={onLike} key={dish.id}/>
       );
 
     });
@@ -54,14 +54,39 @@ var DishList = React.createClass ({
 });
 
 var LoginButton = React.createClass ({
-  render: function() {
-    return <a className="loginButton btn" onClick={this.props.onPress}>login</a>
+  render: function () {
+    return <a className="loginButton btn-flat left" onClick={this.props.onPress}>login</a>
   }
 });
 
 var LogoutButton = React.createClass ({
-  render: function() {
-    return <a className="logoutButton btn" onClick={this.props.onPress}>logout</a>
+  render: function () {
+    return <a className="logoutButton btn-flat right" onClick={this.props.onPress}>logout</a>
+  }
+});
+
+var PageHeader = React.createClass ({
+  render: function () {
+    return (
+      <header className="navbar-fixed">
+        <nav>
+          <div className="nav-wrapper">
+            <h1 className="header center-align">Fare</h1>
+          </div>
+        </nav>
+      </header>
+    )
+  }
+});
+
+var PageFooter = React.createClass ({
+  render: function () {
+    return (
+      <footer className="pageFooter">
+        <LoginButton onPress={this.props.login} />
+        <LogoutButton onPress={this.props.logout} />
+      </footer>
+    )
   }
 });
 
@@ -156,10 +181,9 @@ var DishBox = React.createClass ({
   render: function () {
     return (
       <div className="dishesBox">
-        <LoginButton onPress={this.loginToServer} />
-        <LogoutButton onPress={this.logoutOfServer} />
-        <h1 className="center-align">Fare</h1>
+        <PageHeader />
         <DishList dishes={this.state.dishes} userLikes={this.state.userLikes} onLike={this.handleLikeSubmit} />
+        <PageFooter login={this.loginToServer} logout={this.logoutOfServer} />
       </div>
     );
   }

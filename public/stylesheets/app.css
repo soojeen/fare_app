@@ -2029,7 +2029,7 @@ ul {
 .clearfix {
   clear: both; }
 
-.z-depth-1, .btn, .btn-large, .btn-floating {
+.z-depth-1, nav, .btn, .btn-large, .btn-floating {
   -webkit-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   -moz-box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12); }
@@ -2775,6 +2775,118 @@ span.badge {
       .row .col.offset-l12 {
         margin-left: 100%; } }
 
+nav {
+  color: #fff;
+  background-color: #ee6e73;
+  width: 100%;
+  height: 56px;
+  line-height: 56px; }
+  nav a {
+    color: #fff; }
+  nav .nav-wrapper {
+    position: relative;
+    height: 100%; }
+    nav .nav-wrapper i {
+      display: block;
+      font-size: 2rem; }
+  @media only screen and (min-width: 993px) {
+    nav a.button-collapse {
+      display: none; } }
+  nav .button-collapse {
+    float: left;
+    position: relative;
+    z-index: 1;
+    height: 56px; }
+    nav .button-collapse i {
+      font-size: 2.7rem;
+      height: 56px;
+      line-height: 56px; }
+  nav .brand-logo {
+    position: absolute;
+    color: #fff;
+    display: inline-block;
+    font-size: 2.1rem;
+    padding: 0; }
+    nav .brand-logo.center {
+      left: 50%;
+      -webkit-transform: translateX(-50%);
+      -moz-transform: translateX(-50%);
+      -ms-transform: translateX(-50%);
+      -o-transform: translateX(-50%);
+      transform: translateX(-50%); }
+    @media only screen and (max-width: 992px) {
+      nav .brand-logo {
+        left: 50%;
+        -webkit-transform: translateX(-50%);
+        -moz-transform: translateX(-50%);
+        -ms-transform: translateX(-50%);
+        -o-transform: translateX(-50%);
+        transform: translateX(-50%); } }
+    nav .brand-logo.right {
+      right: 0.5rem;
+      padding: 0; }
+  nav ul {
+    margin: 0; }
+    nav ul li {
+      -webkit-transition: background-color 0.3s;
+      -moz-transition: background-color 0.3s;
+      -o-transition: background-color 0.3s;
+      -ms-transition: background-color 0.3s;
+      transition: background-color 0.3s;
+      float: left;
+      padding: 0; }
+      nav ul li:hover, nav ul li.active {
+        background-color: rgba(0, 0, 0, 0.1); }
+    nav ul a {
+      font-size: 1rem;
+      color: #fff;
+      display: block;
+      padding: 0 15px; }
+    nav ul.left {
+      float: left; }
+  nav .input-field {
+    margin: 0; }
+    nav .input-field input {
+      height: 100%;
+      font-size: 1.2rem;
+      border: none;
+      padding-left: 2rem; }
+      nav .input-field input:focus, nav .input-field input[type=text]:valid, nav .input-field input[type=password]:valid, nav .input-field input[type=email]:valid, nav .input-field input[type=url]:valid, nav .input-field input[type=date]:valid {
+        border: none;
+        box-shadow: none; }
+    nav .input-field label {
+      top: 0;
+      left: 0; }
+      nav .input-field label i {
+        color: rgba(255, 255, 255, 0.7);
+        -webkit-transition: color 0.3s;
+        -moz-transition: color 0.3s;
+        -o-transition: color 0.3s;
+        -ms-transition: color 0.3s;
+        transition: color 0.3s; }
+      nav .input-field label.active i {
+        color: #fff; }
+      nav .input-field label.active {
+        -webkit-transform: translateY(0);
+        -moz-transform: translateY(0);
+        -ms-transform: translateY(0);
+        -o-transform: translateY(0);
+        transform: translateY(0); }
+
+.navbar-fixed {
+  position: relative;
+  height: 56px;
+  z-index: 998; }
+  .navbar-fixed nav {
+    position: fixed; }
+
+@media only screen and (min-width: 601px) {
+  nav, nav .nav-wrapper i, nav a.button-collapse, nav a.button-collapse i {
+    height: 64px;
+    line-height: 64px; }
+
+  .navbar-fixed {
+    height: 64px; } }
 @font-face {
   font-family: "Roboto";
   src: url("../font/roboto/Roboto-Thin.woff2") format("woff2"), url("../font/roboto/Roboto-Thin.woff") format("woff"), url("../font/roboto/Roboto-Thin.ttf") format("truetype");
@@ -3105,9 +3217,24 @@ button.btn-floating {
   padding: 0 0.5rem;
   color: #666633; }
 
+.nav-wrapper {
+  color: #f6f1eb;
+  background-color: #666633; }
+
+.header {
+  margin: 0;
+  font-size: 1.7em; }
+
+.dish {
+  padding-left: 10px;
+  border-bottom: 1px solid #666633; }
+
+.dishList {
+  margin: 0; }
+
 body {
   background-color: #f6f1eb;
   color: #666633;
-  font-size: 1.5em; }
+  font-size: 1.2em; }
 
 /*# sourceMappingURL=app.css.map */
