@@ -11,7 +11,7 @@ end
 
 get '/dishes/user_likes' do
   user_id = session[:user_id]
-  @likes = Like.where(user_id: user_id)
+  @likes = (user_id) ? Like.where(user_id: user_id) : nil
   json @likes
 end
 
