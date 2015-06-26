@@ -5481,4 +5481,10 @@ body {
   background-color: #f6f1eb;
   font-size: 1.1em; }
 
+.loginForm {
+  display: block;
+  margin-top: 8rem; }
+  .loginForm img {
+    width: 16rem; }
+
 /*# sourceMappingURL=app.css.map */

@@ -24,7 +24,8 @@ var Dish = React.createClass ({
       <li className="dish">
         <p className="dishName">{this.props.dish.name}</p>
         <p className="dishDescription truncate">{this.props.dish.description}</p>
-        <div className="restaurantName">{this.props.dish.restaurant.name}
+        <div className="restaurantName">
+          {this.props.dish.restaurant.name}
           <DishLikes dish={this.props.dish} liked={this.props.liked} onLike={this.props.onLike} />
         </div>
       </li>
@@ -34,18 +35,14 @@ var Dish = React.createClass ({
 
 var DishList = React.createClass ({
   render: function () {
-    var onLike = this.props.onLike;
-    var userLikes = this.props.userLikes;
     var DishNodes = this.props.dishes.map(function (dish) {
       var liked = false;
-      var dish_hash = {dish_id: dish.id};
-      if (_.find(userLikes, {dish_id: dish.id}) !== undefined)
+      if (_.find(this.props.userLikes, {dish_id: dish.id}) !== undefined)
         liked = true;
       return (
-        <Dish dish={dish} liked={liked} onLike={onLike} key={dish.id}/>
+        <Dish dish={dish} liked={liked} onLike={this.props.onLike} key={dish.id} />
       );
-
-    });
+    }.bind(this));
     return (
       <ul className="dishList">
         {DishNodes}
@@ -129,7 +126,7 @@ var DishBox = React.createClass ({
       type: 'POST',
       data: dish,
       success: function (d) {
-        this.setState({dishes: d});
+        this.setState({userLikes: d});
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -161,16 +158,23 @@ var LoginForm = React.createClass ({
   handleSubmit: function (e) {
     e.preventDefault();
     var username = React.findDOMNode(this.refs.username).value.trim();
-    this.props.onLogin({username: username});
+    if (username == "")
+      e.stopPropagation();
+    else
+      this.props.onLogin({username: username});
   },
 
   render: function () {
     return (
-      <form className="LoginForm" onSubmit={this.handleSubmit}>
-        <h1>login</h1>
-        <input type="text" ref="username" placeholder="username" />
-        <input type="submit" />
-      </form>
+      <div className="loginForm center-align">
+        <form onSubmit={this.handleSubmit}>
+          <img src="/img/logo.png" />
+          <input type="text" ref="username" placeholder="username" />
+          <div className="center-align">
+            <button className="btn-flat" type="submit">start</button>
+          </div>
+        </form>
+      </div>
     );
   }
 });
@@ -217,7 +221,7 @@ var FareApp = React.createClass ({
       data: null,
       success: function (d) {
         if (d)
-          this.setState({login: login});
+          this.setState({login: d});
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -225,12 +229,15 @@ var FareApp = React.createClass ({
     });
   },
 
-  render: function () {
+  componentDidMount: function () {
     this.loadUserSession();
+  },
+
+  render: function () {
     if (this.state.login === false)
       return (<LoginForm onLogin={this.loginToServer} />)
     else
-      {return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)}
+      return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)
   }
 });
 
