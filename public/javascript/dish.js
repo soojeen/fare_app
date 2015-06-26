@@ -1,5 +1,4 @@
 var DishLikes = React.createClass ({
-
   handleClick: function (e) {
     this.props.onLike({dish_id: this.props.dish.id});
   },
@@ -33,19 +32,66 @@ var Dish = React.createClass ({
 });
 
 var DishList = React.createClass ({
+
+  getInitialState: function () {
+    return {likeCount: [], userLikes: []};
+  },
+
+  // loadLikeCountFromServer: function () {
+  //   $.ajax({
+  //     url: '/dishes/like_count'
+  //   });
+  // },
+
+  loadUserLikesFromServer: function () {
+    $.ajax({
+      url: '/dishes/user_likes',
+      dataType: 'json',
+      cache: false,
+      success: function (d) {
+        this.setState({userLikes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)      
+    });
+  },
+
+  componentDidMount: function () {
+    console.log(this.state)
+    console.log(this.props)
+    this.loadUserLikesFromServer();
+    setInterval(this.loadUserLikesFromServer(), this.props.pollInterval);
+  },
+
+  handleLikeSubmit: function (dish) {
+    var likes = this.state.userLikes;
+    var newLikes = likes.concat([dish]);
+    this.setState({userLikes: newLikes});
+    $.ajax({
+      url: '/dishes',
+      dataType: 'json',
+      type: 'POST',
+      data: dish,
+      success: function (d) {
+        this.setState({userLikes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)      
+    });
+  },
+
   render: function () {
-    var onLike = this.props.onLike;
-    var userLikes = this.props.userLikes;
     var DishNodes = this.props.dishes.map(function (dish) {
       var liked = false;
       var dish_hash = {dish_id: dish.id};
-      if (_.find(userLikes, {dish_id: dish.id}) !== undefined)
+      if (_.find(this.state.userLikes, {dish_id: dish.id}) !== undefined)
         liked = true;
       return (
-        <Dish dish={dish} liked={liked} onLike={onLike} key={dish.id}/>
+        <Dish dish={dish} liked={liked} key={dish.id} onLike={this.handleLikeSubmit} />
       );
-
-    });
+    }.bind(this));
     return (
       <ul className="dishList">
         {DishNodes}
@@ -86,9 +132,10 @@ var PageFooter = React.createClass ({
 });
 
 var DishBox = React.createClass ({
+
   loadDishesFromServer: function () {
     $.ajax({
-      url: this.props.url,
+      url: '/dishes',
       dataType: 'json',
       cache: false,
       success: function (d) {
@@ -100,57 +147,20 @@ var DishBox = React.createClass ({
     });
   },
 
-  loadUserLikesFromServer: function () {
-    $.ajax({
-      url: '/dishes/user_likes',
-      dataType: 'json',
-      cache: false,
-      success: function (d) {
-        this.setState({userLikes: d});
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)      
-    });
-  },
-
-  loadFromServer: function () {
-    this.loadDishesFromServer();
-    this.loadUserLikesFromServer();
-  },
-
-  handleLikeSubmit: function (dish) {
-    var likes = this.state.userLikes;
-    var newLikes = likes.concat([dish]);
-    this.setState({userLikes: newLikes});
-    $.ajax({
-      url: this.props.url,
-      dataType: 'json',
-      type: 'POST',
-      data: dish,
-      success: function (d) {
-        this.setState({dishes: d});
-      }.bind(this),
-      error: function (xhr, status, err) {
-        console.error(this.props.url, status, err.toString());
-      }.bind(this)      
-    });
-  },
-
   getInitialState: function () {
-    return {dishes: [], userLikes: []};
+    return {dishes: []};
   },
 
   componentDidMount: function () {
-    this.loadFromServer();
-    setInterval(this.loadFromServer, this.props.pollInterval);
+    this.loadDishesFromServer();
   },
 
   render: function () {
+    console.log(this.state)
     return (
       <div className="dishesBox">
         <PageHeader />
-        <DishList dishes={this.state.dishes} userLikes={this.state.userLikes} onLike={this.handleLikeSubmit} />
+        <DishList dishes={this.state.dishes} pollInterval={10000} />
         <PageFooter onLogout={this.props.onLogout} />
       </div>
     );
@@ -235,9 +245,9 @@ var FareApp = React.createClass ({
 
   render: function () {
     if (this.state.login === false)
-      return (<LoginForm onLogin={this.loginToServer} />)
+      return (<LoginForm onLogin={this.loginToServer} />);
     else
-      {return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)}
+      return (<DishBox onLogout={this.logoutOfServer} />);
   }
 });
 
