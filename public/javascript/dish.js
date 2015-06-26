@@ -35,18 +35,14 @@ var Dish = React.createClass ({
 
 var DishList = React.createClass ({
   render: function () {
-    var onLike = this.props.onLike;
-    var userLikes = this.props.userLikes;
     var DishNodes = this.props.dishes.map(function (dish) {
       var liked = false;
-      var dish_hash = {dish_id: dish.id};
-      if (_.find(userLikes, {dish_id: dish.id}) !== undefined)
+      if (_.find(this.props.userLikes, {dish_id: dish.id}) !== undefined)
         liked = true;
       return (
-        <Dish dish={dish} liked={liked} onLike={onLike} key={dish.id}/>
+        <Dish dish={dish} liked={liked} onLike={this.props.onLike} key={dish.id} />
       );
-
-    });
+    }.bind(this));
     return (
       <ul className="dishList">
         {DishNodes}

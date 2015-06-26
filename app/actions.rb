@@ -4,6 +4,11 @@ get '/' do
   erb :index
 end
 
+post '/dishes' do
+  Like.create(dish_id: params[:dish_id], user_id: session[:user_id])
+  redirect '/dishes/user_likes'
+end
+
 get '/dishes' do
   @dishes = Dish.includes(:restaurant).order(likes_count: :desc).limit(20)
   json @dishes
@@ -33,9 +38,4 @@ get '/sessions' do
   user_id = session[:user_id]
   @user = user_id ? User.find(session[:user_id]) : nil
   json @user
-end
-
-post '/dishes' do
-  Like.create(dish_id: params[:dish_id], user_id: session[:user_id])
-  redirect '/dishes/user_likes'
 end
