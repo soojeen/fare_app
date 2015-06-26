@@ -5482,6 +5482,9 @@ body {
   font-size: 1.1em; }
 
 .loginForm {
-  margin-top: 10rem; }
+  display: block;
+  margin-top: 8rem; }
+  .loginForm img {
+    width: 16rem; }
 
 /*# sourceMappingURL=app.css.map */

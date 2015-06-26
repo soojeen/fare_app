@@ -165,7 +165,7 @@ var LoginForm = React.createClass ({
     return (
       <div className="loginForm center-align">
         <form onSubmit={this.handleSubmit}>
-          <h1>Fare</h1>
+          <img src="/img/logo.png" />
           <input type="text" ref="username" placeholder="username" />
           <div className="center-align">
             <button className="btn-flat" type="submit">start</button>
