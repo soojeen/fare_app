@@ -158,7 +158,10 @@ var LoginForm = React.createClass ({
   handleSubmit: function (e) {
     e.preventDefault();
     var username = React.findDOMNode(this.refs.username).value.trim();
-    this.props.onLogin({username: username});
+    if (username == "")
+      e.stopPropagation();
+    else
+      this.props.onLogin({username: username});
   },
 
   render: function () {
