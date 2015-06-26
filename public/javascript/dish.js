@@ -24,7 +24,8 @@ var Dish = React.createClass ({
       <li className="dish">
         <p className="dishName">{this.props.dish.name}</p>
         <p className="dishDescription truncate">{this.props.dish.description}</p>
-        <div className="restaurantName">{this.props.dish.restaurant.name}
+        <div className="restaurantName">
+          {this.props.dish.restaurant.name}
           <DishLikes dish={this.props.dish} liked={this.props.liked} onLike={this.props.onLike} />
         </div>
       </li>
@@ -129,7 +130,7 @@ var DishBox = React.createClass ({
       type: 'POST',
       data: dish,
       success: function (d) {
-        this.setState({dishes: d});
+        this.setState({userLikes: d});
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -166,11 +167,15 @@ var LoginForm = React.createClass ({
 
   render: function () {
     return (
-      <form className="LoginForm" onSubmit={this.handleSubmit}>
-        <h1>login</h1>
-        <input type="text" ref="username" placeholder="username" />
-        <input type="submit" />
-      </form>
+      <div className="loginForm center-align">
+        <form onSubmit={this.handleSubmit}>
+          <h1>Fare</h1>
+          <input type="text" ref="username" placeholder="username" />
+          <div className="center-align">
+            <button className="btn-flat" type="submit">start</button>
+          </div>
+        </form>
+      </div>
     );
   }
 });
@@ -225,12 +230,15 @@ var FareApp = React.createClass ({
     });
   },
 
-  render: function () {
+  componentDidMount: function () {
     this.loadUserSession();
+  },
+
+  render: function () {
     if (this.state.login === false)
       return (<LoginForm onLogin={this.loginToServer} />)
     else
-      {return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)}
+      return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)
   }
 });
 
