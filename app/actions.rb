@@ -17,11 +17,9 @@ end
 
 get '/login' do
   username = params[:username]
-  if @user = User.find_by(username: username)
-    session[:user_id] = @user.id
-  else
-    @user = User.create(username: username)
-  end
+  @user = User.find_by(username: username)
+  @user = User.create(username: username) unless @user
+  session[:user_id] = @user.id
   json @user
 end
 
@@ -32,18 +30,12 @@ get '/logout' do
 end
 
 get '/sessions' do
-  if params[:username]
-    @user = User.find_by(username: username)
-  else
-    @user = nil
-  end
+  user_id = session[:user_id]
+  @user = user_id ? User.find(session[:user_id]) : nil
   json @user
 end
 
 post '/dishes' do
-  dish_id = params[:dish_id]
-  user_id = session[:user_id]
-  @dish = Dish.find(dish_id.to_i)
-  Like.create(dish_id: dish_id, user_id: user_id)
-  redirect '/dishes'
+  Like.create(dish_id: params[:dish_id], user_id: session[:user_id])
+  redirect '/dishes/user_likes'
 end

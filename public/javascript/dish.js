@@ -217,7 +217,7 @@ var FareApp = React.createClass ({
       data: null,
       success: function (d) {
         if (d)
-          this.setState({login: login});
+          this.setState({login: d});
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
