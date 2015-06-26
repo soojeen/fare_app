@@ -38,5 +38,9 @@ get '/sessions' do
 end
 
 post '/dishes' do
-  Like.create(dish_id: params[:dish_id], user_id: session[:user_id])
+  dish_id = params[:dish_id]
+  user_id = session[:user_id]
+  @dish = Dish.find(dish_id.to_i)
+  Like.create(dish_id: dish_id, user_id: user_id)
+  redirect '/dishes'
 end
