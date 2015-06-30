@@ -240,7 +240,7 @@ var FareApp = React.createClass ({
     if (this.state.login === false)
       return (<LoginForm onLogin={this.loginToServer} />)
     else
-      return (<DishBox pollInterval={2000} onLogout={this.logoutOfServer} />)
+      return (<DishBox pollInterval={5000} onLogout={this.logoutOfServer} />)
   }
 });
 
