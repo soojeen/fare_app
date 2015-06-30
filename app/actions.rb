@@ -10,7 +10,7 @@ post '/dishes' do
 end
 
 get '/dishes' do
-  @dishes = Dish.includes(:restaurant).order(likes_count: :desc).limit(20)
+  @dishes = Dish.includes(:restaurant).order(likes_count: :desc)
   json @dishes
 end
 
