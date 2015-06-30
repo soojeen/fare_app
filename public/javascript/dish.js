@@ -169,7 +169,9 @@ var LoginForm = React.createClass ({
       <div className="loginForm center-align">
         <form onSubmit={this.handleSubmit}>
           <img src="/img/logo.png" />
-          <input type="text" ref="username" placeholder="username" />
+          <div className="usernameInput">
+            <input type="text" ref="username" placeholder="username" />
+          </div>
           <div className="center-align">
             <button className="btn-flat" type="submit">start</button>
           </div>
@@ -221,7 +223,7 @@ var FareApp = React.createClass ({
       data: null,
       success: function (d) {
         if (d)
-          this.setState({login: d});
+          this.setState({login: true});
       }.bind(this),
       error: function (xhr, status, err) {
         console.error(this.props.url, status, err.toString());
@@ -229,7 +231,7 @@ var FareApp = React.createClass ({
     });
   },
 
-  componentDidMount: function () {
+  componentWillMount: function () {
     this.loadUserSession();
   },
 
@@ -237,7 +239,7 @@ var FareApp = React.createClass ({
     if (this.state.login === false)
       return (<LoginForm onLogin={this.loginToServer} />)
     else
-      return (<DishBox url={'/dishes'} pollInterval={10000} onLogout={this.logoutOfServer} />)
+      return (<DishBox url={'/dishes'} pollInterval={2000} onLogout={this.logoutOfServer} />)
   }
 });
 
