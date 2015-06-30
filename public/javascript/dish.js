@@ -2,6 +2,7 @@ var DishLikes = React.createClass ({
 
   handleClick: function (e) {
     this.props.onLike({dish_id: this.props.dish.id});
+    this.props.dish.likes_count++;
   },
 
   render: function () {
@@ -85,7 +86,7 @@ var PageFooter = React.createClass ({
 var DishBox = React.createClass ({
   loadDishesFromServer: function () {
     $.ajax({
-      url: this.props.url,
+      url: '/dishes',
       dataType: 'json',
       cache: false,
       success: function (d) {
@@ -121,7 +122,7 @@ var DishBox = React.createClass ({
     var newLikes = likes.concat([dish]);
     this.setState({userLikes: newLikes});
     $.ajax({
-      url: this.props.url,
+      url: '/dishes',
       dataType: 'json',
       type: 'POST',
       data: dish,
@@ -140,7 +141,7 @@ var DishBox = React.createClass ({
 
   componentDidMount: function () {
     this.loadFromServer();
-    setInterval(this.loadFromServer, this.props.pollInterval);
+    setInterval(this.loadUserLikesFromServer, this.props.pollInterval);
   },
 
   render: function () {
@@ -239,7 +240,7 @@ var FareApp = React.createClass ({
     if (this.state.login === false)
       return (<LoginForm onLogin={this.loginToServer} />)
     else
-      return (<DishBox url={'/dishes'} pollInterval={2000} onLogout={this.logoutOfServer} />)
+      return (<DishBox pollInterval={2000} onLogout={this.logoutOfServer} />)
   }
 });
 
