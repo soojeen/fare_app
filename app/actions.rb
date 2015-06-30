@@ -25,6 +25,7 @@ get '/login' do
   @user = User.find_by(username: username)
   @user = User.create(username: username) unless @user
   session[:user_id] = @user.id
+  p session
   json @user
 end
 

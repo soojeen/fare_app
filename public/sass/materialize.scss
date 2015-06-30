@@ -43,43 +43,43 @@ $collection-bg-color: $secondary-color;
 
 .btn-flat {
   padding: 0 0.5rem;
-  color: $primary-color
+  color: $primary-color;
 }
 
 .nav-wrapper {
   color: $secondary-color;
-  background-color: $primary-color
+  background-color: $primary-color;
 }
 
 .header {
   margin: 0;
-  font-size: 1.7em
+  font-size: 1.7em;
 }
 
 .dish {
   padding: 1rem 2rem;
-  border-bottom: 1px solid $primary-color
+  border-bottom: 1px solid $primary-color;
 }
 
 p, .dishList {
-  margin: 0
+  margin: 0;
 }
 
 nav {
   -webkit-box-shadow: none;
-  box-shadow: none
+  box-shadow: none;
 }
 
 body {
   color: $primary-color;
   background-color: $secondary-color;
-  font-size: 1.1em
+  font-size: 1.1em;
 }
 
 .loginForm {
   display: block;
-  margin-top: 8rem;
+  margin-top: 5rem;
   img {
-    width: 16rem
+    width: 16rem;
   }
 } 
