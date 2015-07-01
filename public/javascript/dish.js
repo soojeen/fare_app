@@ -1,16 +1,22 @@
 var DishLikes = React.createClass ({
 
   handleClick: function (e) {
-    this.props.onLike({dish_id: this.props.dish.id});
-    this.props.dish.likes_count++;
+    dish = {dish_id: this.props.dish.id}
+    if (this.props.liked === true) {
+      this.props.dish.likes_count--;
+      this.props.onUnlike(dish);  
+    }
+    else {
+      this.props.dish.likes_count++;
+      this.props.onLike(dish);
+    }
   },
 
   render: function () {
     var likeIcon = (this.props.liked) ? "mdi-action-favorite" : "mdi-action-favorite-outline";
-    var likeClick = (this.props.liked) ? "" : this.handleClick;
     return (
       <span className="dishLikes">
-        <a className="submitLike btn-flat" onClick={likeClick}>
+        <a className="submitLike btn-flat" onClick={this.handleClick}>
           <i className={likeIcon}></i>
         </a>
         <span>{this.props.dish.likes_count}</span>
@@ -27,7 +33,10 @@ var Dish = React.createClass ({
         <p className="dishDescription truncate">{this.props.dish.description}</p>
         <div className="restaurantName">
           {this.props.dish.restaurant.name}
-          <DishLikes dish={this.props.dish} liked={this.props.liked} onLike={this.props.onLike} />
+          <DishLikes dish={this.props.dish}
+            liked={this.props.liked}
+            onLike={this.props.onLike}
+            onUnlike={this.props.onUnlike} />
         </div>
       </li>
     );
@@ -41,7 +50,11 @@ var DishList = React.createClass ({
       if (_.find(this.props.userLikes, {dish_id: dish.id}) !== undefined)
         liked = true;
       return (
-        <Dish dish={dish} liked={liked} onLike={this.props.onLike} key={dish.id} />
+        <Dish dish={dish}
+          liked={liked}
+          onLike={this.props.onLike}
+          onUnlike={this.props.onUnlike}
+          key={dish.id} />
       );
     }.bind(this));
     return (
@@ -122,9 +135,29 @@ var DishBox = React.createClass ({
     var newLikes = likes.concat([dish]);
     this.setState({userLikes: newLikes});
     $.ajax({
-      url: '/dishes',
+      url: '/likes',
       dataType: 'json',
       type: 'POST',
+      data: dish,
+      success: function (d) {
+        this.setState({userLikes: d});
+      }.bind(this),
+      error: function (xhr, status, err) {
+        console.error(this.props.url, status, err.toString());
+      }.bind(this)      
+    });
+  },
+
+  handleUnlikeSubmit: function (dish) {
+    var likes = this.state.userLikes;
+    var newLikes = _.reject(likes, function (like) {
+      like == dish
+    });
+    this.setState({userLikes: newLikes});
+    $.ajax({
+      url: '/likes',
+      dataType: 'json',
+      type: 'DELETE',
       data: dish,
       success: function (d) {
         this.setState({userLikes: d});
@@ -148,7 +181,11 @@ var DishBox = React.createClass ({
     return (
       <div className="dishesBox">
         <PageHeader />
-        <DishList dishes={this.state.dishes} userLikes={this.state.userLikes} onLike={this.handleLikeSubmit} />
+        <DishList
+          dishes={this.state.dishes}
+          userLikes={this.state.userLikes}
+          onLike={this.handleLikeSubmit}
+          onUnlike={this.handleUnlikeSubmit} />
         <PageFooter onLogout={this.props.onLogout} />
       </div>
     );
