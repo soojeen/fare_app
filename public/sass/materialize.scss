@@ -42,6 +42,7 @@ $secondary-color: #f6f1eb;
 $collection-bg-color: $secondary-color;
 
 .btn-flat {
+  font-size: 1.6rem;
   padding: 0 0.5rem;
   color: $primary-color;
 }
@@ -78,8 +79,16 @@ body {
 
 .loginForm {
   display: block;
-  margin-top: 5rem;
+  margin-top: 3rem;
   img {
-    width: 16rem;
+    width: 18rem;
   }
 } 
+
+.usernameInput > input {
+  max-width: 16rem;
+  font-size: 1.6rem;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px;
+}
