@@ -4,8 +4,14 @@ get '/' do
   erb :index
 end
 
-post '/dishes' do
+post '/likes' do
   Like.create(dish_id: params[:dish_id], user_id: session[:user_id])
+  redirect '/dishes/user_likes'
+end
+
+delete '/likes' do
+  like = Like.where(dish_id: params[:dish_id], user_id: session[:user_id])
+  like[0].destroy
   redirect '/dishes/user_likes'
 end
 
