@@ -5454,6 +5454,7 @@ button.btn-floating {
     font-size: 1.6rem; }
 
 .btn-flat {
+  font-size: 1.6rem;
   padding: 0 0.5rem;
   color: #666633; }
 
@@ -5483,8 +5484,15 @@ body {
 
 .loginForm {
   display: block;
-  margin-top: 5rem; }
+  margin-top: 3rem; }
   .loginForm img {
-    width: 16rem; }
+    width: 18rem; }
+
+.usernameInput > input {
+  max-width: 16rem;
+  font-size: 1.6rem;
+  -webkit-border-radius: 10px;
+  -moz-border-radius: 10px;
+  border-radius: 10px; }
 
 /*# sourceMappingURL=app.css.map */

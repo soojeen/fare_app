@@ -29,7 +29,7 @@ d[0] = [
   'Shrimp Roti',
   'Chicken Jalfrizi Roti',
   'Chicken Tikka Masala Roti',
-  'Chicken Malai KOfta Roti',
+  'Chicken Malai Kofta Roti',
   'Chicken Vindaloo Roti',
   'Chicken Korma Roti',
   'Madras Chicken Roti',
