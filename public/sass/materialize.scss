@@ -74,7 +74,7 @@ nav {
 body {
   color: $primary-color;
   background-color: $secondary-color;
-  font-size: 1.1em;
+  font-size: 1.2em;
 }
 
 .loginForm {
@@ -92,3 +92,18 @@ body {
   -moz-border-radius: 10px;
   border-radius: 10px;
 }
+
+a:link {
+  color: $primary-color;
+}
+
+.dishDetail {
+  img {
+    max-height: 95%;
+    max-width: 95%;
+  }
+  margin-left: 1rem;
+  position: absolute;
+  bottom: 0;
+}
+
