@@ -5499,7 +5499,7 @@ a:link {
   color: #666633; }
 
 .dishDetail {
-  margin-left: 1rem;
+  margin-left: .5rem;
   position: absolute;
   bottom: 0; }
   .dishDetail img {
