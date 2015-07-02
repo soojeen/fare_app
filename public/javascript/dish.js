@@ -197,7 +197,7 @@ var DishBox = React.createClass ({
 
   componentDidMount: function () {
     this.loadFromServer();
-    setInterval(this.loadUserLikesFromServer, this.props.pollInterval);
+    // setInterval(this.loadUserLikesFromServer, this.props.pollInterval);
   },
 
   render: function () {

@@ -15,7 +15,7 @@ var LightboxModal = React.createClass({
         border: '2px solid #666633',
         borderRadius: '10px',
         boxShadow: '0 1px 5px #333',
-        zIndex:'101'
+        zIndex:'1001'
     },
 
     blackOverlayStyles: {
@@ -26,7 +26,7 @@ var LightboxModal = React.createClass({
         bottom: '0px',
         left: '0px',
         right: '0px',
-        zIndex: '100'
+        zIndex: '1000'
     },
 
     closeTagStyles: {
@@ -65,8 +65,7 @@ var LightboxModal = React.createClass({
             return (
                 <div>
                     <div style={this.blackOverlayStyles} onClick={this.props.closeLightbox} />
-                    <div style={this.whiteContentStyles}>
-                        <a style={this.closeTagStyles} onClick={this.props.closeLightbox}>&times;</a>
+                    <div className="modal" style={this.whiteContentStyles}>
                         {this.props.children}
                     </div>
             </div>

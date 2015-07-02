@@ -5503,4 +5503,8 @@ a:link {
   .dishDetail img {
     max-width: 100%; }
 
+.modal {
+  max-height: 80%;
+  overflow-y: scroll; }
+
 /*# sourceMappingURL=app.css.map */
