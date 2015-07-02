@@ -7,7 +7,6 @@ var LightboxModal = React.createClass({
     whiteContentStyles: {
         position: 'fixed',
         top: '15%',
-        bottom: '10%',
         left: '5%',
         right: '5%',
         backgroundColor: '#f6f1eb',

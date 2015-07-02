@@ -5,6 +5,7 @@ class CreateDishTable < ActiveRecord::Migration
       t.belongs_to :restaurant
       t.string :name
       t.string :description
+      t.string :image_url
       t.float :price
       t.integer :likes_count, default: 0
       t.timestamps null: false

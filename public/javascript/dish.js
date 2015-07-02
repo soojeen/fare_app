@@ -29,6 +29,8 @@ var DishLikes = React.createClass ({
 
 var Dish = React.createClass ({
   render: function () {
+    no_image = 'http://www.lucasraunch.com/wp-content/themes/socialbuddy/images/no_image.png'
+    imageUrl = (this.props.dish.image_url === null) ? no_image : this.props.dish.image_url
     return (
       <li className="dish">
 
@@ -41,10 +43,13 @@ var Dish = React.createClass ({
           </LightboxTrigger>
 
           <LightboxModal>
+          <div className="dishZoom">
             <div className="dishDetail">
-              <img src="http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-13.jpg"/>
+                          <img src={imageUrl} />
+
               <p className="dishDetailName">{this.props.dish.name}</p>
               <p className="dishDetailDescription">{this.props.dish.description}</p>
+            </div>
             </div>
           </LightboxModal>
         </Lightbox>

@@ -5499,11 +5499,8 @@ a:link {
   color: #666633; }
 
 .dishDetail {
-  margin-left: .5rem;
-  position: absolute;
-  bottom: 0; }
+  bottom: 1rem; }
   .dishDetail img {
-    max-height: 95%;
-    max-width: 95%; }
+    max-width: 100%; }
 
 /*# sourceMappingURL=app.css.map */

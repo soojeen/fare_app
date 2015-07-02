@@ -54,7 +54,11 @@ d[0] = [
 ] 
 
 d[1] = [
-  ['Pork Belly Bao', 'cucumber, hoisin sauce'],
+  [
+    'Pork Belly Bao', 
+    'cucumber, hoisin sauce',
+    'http://noonasoverforks.com/wp-content/uploads/2014/08/wpid-wp-1407555403669-e1407682259669.jpeg'
+  ],
   ['Chicken Bao', 'takuan, red pepper'],
   ['Braised Beef Bao', 'bok choy, taiwanese pickle'],
   ['Pulled Pork Bao', 'apple slaw'],
@@ -69,9 +73,21 @@ d[1] = [
 ]
 
 d[2] = [
-  ['Margherita', 'Sauce, Mozzarella, Basil'],
-  ['Pepperoni', 'Sauce, Mozzarella, Pepperoni, Oregano'],
-  ['White', 'Mozzarella, Garlic Ricotta, Arugula'],
+  [
+    'Margherita', 
+    'Sauce, Mozzarella, Basil',
+    'http://static1.squarespace.com/static/52e559fbe4b0c687fc54182d/52e56d23e4b07e1802ca7b75/53028e9ce4b0f8636b5e0f2a/1433806763661/nobro-02.JPG?format=1000w'
+  ],
+  [
+    'Pepperoni', 
+    'Sauce, Mozzarella, Pepperoni, Oregano',
+    'http://static1.squarespace.com/static/52e559fbe4b0c687fc54182d/52e56d23e4b07e1802ca7b75/52e883fbe4b0acb3c2023044/1392673541027/IMG_0111.jpg?format=1500w'
+  ],
+  [
+    'White', 
+    'Mozzarella, Garlic Ricotta, Arugula',
+    'http://static1.squarespace.com/static/52e559fbe4b0c687fc54182d/52e56d23e4b07e1802ca7b75/52e88407e4b00b97daff7fd3/1397709809347/IMG_0167.jpg?format=1500w'
+  ],
   ['Puttanesca', 'Hand-Crushed Sauce, Mozzarella, Olives, Scalions, Capers, Anchovies'],
   ['Garlic Knots', 'Like Garlic Bread, Just Better'],
   ['Roasted Garlic Dip', '']
@@ -84,7 +100,8 @@ d[3] = [
     "The \"Option\"",
     'This is our vegetarian option. ' \
     'A custom blend of cheesy goodness sandwiched between Two Roasted portabello mushrooms. ' \
-    'breaded and deep fried then placed on a bun with your choice of toppings'
+    'breaded and deep fried then placed on a bun with your choice of toppings',
+    'http://theburgersprie.wpengine.com/wp-content/uploads/2012/10/optionmenu1.png'
   ],
   ['The Priest', 'Cheeseburger + The Option'],
   ['Magnum', 'Blue Cheeseburger with Bacon'],
@@ -94,23 +111,79 @@ d[3] = [
   ['Fries', ''],
   ['Chili Cheese Fries', ''],
   ['Cookies', ''],
-  ['Jarge-Style Shake', 'Vanilla Choc Straw Shake'],
-  ['Riggs and Murtaugh', 'Black and White Shake'],
-  ['The Four Horsement of the Apocalypse', "A \"Vatican-Style\" Armageddon"],
-  ['Blue Steel', 'Blue Cheeseburger'],
-  ['Jarge-Style', 'Mustard-Grilled Patties with Fried Onions'],
-  ['Religious Hypocrite', 'The Option (Veggie Burger) with Bacon'],
-  ["Noah's Ark", 'The Option (Veggie Burger) with Chili and Cheese'],
-  ['Armageddon', 'Judgement Day with an Extra Patty'],
-  ['Judgement Day', 'The Priest with an Extra Option'],
-  ['Tower of Babel', "A \"Vatican Style\" Pope"],
-  ['The Pope', 'The Priest with an Extra Patty'],
-  ['Holy Smokes', 'Double Cheeseburge Topped with Panko-Crusted Deep-Fried Jaapenos']
+  [
+    'Jarge-Style Shake',
+    'Vanilla Choc Straw Shake',
+    'http://www.theburgerspriest.com/wp-content/uploads/2014/04/20122201_TheBurgersPriestShake.jpg'
+  ],
+  [
+    'Riggs and Murtaugh',
+    'Black and White Shake',
+    'http://www.theburgerspriest.com/wp-content/uploads/2014/04/riggsshake.jpg'
+  ],
+  [
+    'The Four Horsement of the Apocalypse',
+    "A \"Vatican-Style\" Armageddon",
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-12.jpg'
+  ],
+  [
+    'Blue Steel',
+    'Blue Cheeseburger',
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-13.jpg'
+  ],
+  [
+    'Jarge-Style',
+    'Mustard-Grilled Patties with Fried Onions',
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-10.jpg'
+  ],
+  [
+    'Religious Hypocrite',
+    'The Option (Veggie Burger) with Bacon',
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-1.jpg'
+  ],
+  [
+    "Noah's Ark", 
+    'The Option (Veggie Burger) with Chili and Cheese', 
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-8.jpg'
+  ],
+  [
+    'Armageddon', 
+    'Judgement Day with an Extra Patty', 
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-6.jpg'
+  ],
+  [
+    'Judgement Day', 
+    'The Priest with an Extra Option', 
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-5.jpg'
+  ],
+  [
+    'Tower of Babel', 
+    "A \"Vatican Style\" Pope", 
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-2.jpg'
+  ],
+  [
+    'The Pope', 
+    'The Priest with an Extra Patty',
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-4.jpg'
+  ],
+  [
+    'Holy Smokes', 
+    'Double Cheeseburge Topped with Panko-Crusted Deep-Fried Jaapenos',
+    'http://www.theburgerspriest.com/wp-content/uploads/2012/10/BP-web-11.jpg'
+  ]
 ]
 
 d[4] = [
-  ['Lobster Rolls', 'Maine Style served with fresh cut fries & broccoli house slaw'],
-  ['Softshell Crab Sandwich', 'Our famous softshell crab sandwich served with fresh cut fries and broccoli house slaw'],
+  [
+    'Lobster Rolls', 
+    'Maine Style served with fresh cut fries & broccoli house slaw',
+    'http://static1.squarespace.com/static/54879b46e4b08776ce0d81c4/5487cf5ee4b0c491183ed7cf/55671578e4b04cc2d0ded7af/1432819066490/?format=750w'
+  ],
+  [
+    'Softshell Crab Sandwich', 
+    'Our famous softshell crab sandwich served with fresh cut fries and broccoli house slaw',
+    'http://static1.squarespace.com/static/54879b46e4b08776ce0d81c4/5487cf5ee4b0c491183ed7cf/557194b3e4b0ad85cdb905b0/1433506998558/?format=750w'
+  ],
   ['Meiterranean Shrimp Sandwich',
     'Sauteed shrimp in our seasoned tomato sauce with basil and feta served with our fresh cut fries and broccoli house slaw'],
   [
@@ -145,5 +218,5 @@ r_names.each_with_index { | item , index | r[index] = Restaurant.create(name: it
 d[0].each { | x | r[0].dishes.create(name: x) }
 
 4.times do | y | 
-  d[y + 1].each { | x | r[y + 1].dishes.create(name: x[0], description: x[1]) }
+  d[y + 1].each { | x | r[y + 1].dishes.create(name: x[0], description: x[1], image_url: x[2]) }
 end
