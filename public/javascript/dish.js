@@ -4,10 +4,12 @@ var DishLikes = React.createClass ({
     dish = {dish_id: this.props.dish.id}
     if (this.props.liked === true) {
       this.props.dish.likes_count--;
+      this.props.liked = false;
       this.props.onUnlike(dish);  
     }
     else {
       this.props.dish.likes_count++;
+      this.props.liked = true;
       this.props.onLike(dish);
     }
   },
@@ -27,10 +29,31 @@ var DishLikes = React.createClass ({
 
 var Dish = React.createClass ({
   render: function () {
+    no_image = 'http://www.lucasraunch.com/wp-content/themes/socialbuddy/images/no_image.png'
+    imageUrl = (this.props.dish.image_url === null) ? no_image : this.props.dish.image_url
     return (
       <li className="dish">
-        <p className="dishName">{this.props.dish.name}</p>
-        <p className="dishDescription truncate">{this.props.dish.description}</p>
+
+        <Lightbox>
+          <LightboxTrigger>
+            <a href="javascript:;" onClick={this.props.openLightbox}>
+              <p className="dishName">{this.props.dish.name}</p>
+              <p className="dishDescription truncate">{this.props.dish.description}</p>
+            </a>
+          </LightboxTrigger>
+
+          <LightboxModal>
+          <div className="dishZoom">
+            <div className="dishDetail">
+                          <img src={imageUrl} />
+
+              <p className="dishDetailName">{this.props.dish.name}</p>
+              <p className="dishDetailDescription">{this.props.dish.description}</p>
+            </div>
+            </div>
+          </LightboxModal>
+        </Lightbox>
+
         <div className="restaurantName">
           {this.props.dish.restaurant.name}
           <DishLikes dish={this.props.dish}
@@ -151,7 +174,7 @@ var DishBox = React.createClass ({
   handleUnlikeSubmit: function (dish) {
     var likes = this.state.userLikes;
     var newLikes = _.reject(likes, function (like) {
-      like == dish
+      like === dish
     });
     this.setState({userLikes: newLikes});
     $.ajax({

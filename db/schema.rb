@@ -17,6 +17,7 @@ ActiveRecord::Schema.define(version: 20150619154013) do
     t.integer  "restaurant_id"
     t.string   "name"
     t.string   "description"
+    t.string   "image_url"
     t.float    "price"
     t.integer  "likes_count",   default: 0
     t.datetime "created_at",                null: false

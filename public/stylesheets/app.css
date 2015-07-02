@@ -5480,7 +5480,7 @@ nav {
 body {
   color: #666633;
   background-color: #f6f1eb;
-  font-size: 1.1em; }
+  font-size: 1.2em; }
 
 .loginForm {
   display: block;
@@ -5494,5 +5494,13 @@ body {
   -webkit-border-radius: 10px;
   -moz-border-radius: 10px;
   border-radius: 10px; }
+
+a:link {
+  color: #666633; }
+
+.dishDetail {
+  bottom: 1rem; }
+  .dishDetail img {
+    max-width: 100%; }
 
 /*# sourceMappingURL=app.css.map */
